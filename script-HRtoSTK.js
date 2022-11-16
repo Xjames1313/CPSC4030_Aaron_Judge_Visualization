@@ -109,7 +109,7 @@ d3.csv("Data.csv").then(
 
                 d3.select("#mytooltip")
                     .style("visibility", "visible")//set style to it
-                    .text("Home Runs: " + i.b_strikeout)//set text to it
+                    .text("Home Runs: " + i.b_home_run)//set text to it
                 })
              .on("mouseout", function(){
                 d3.select(this).transition()
@@ -126,7 +126,7 @@ d3.csv("Data.csv").then(
               svg.append("path")
               .datum(data) 
               .attr("class", "line") 
-              .attr("transform", "translate("+ (dimensions.margin.left + 40) +","+ dimensions.margin.top + ")")
+              .attr("transform", "translate("+ (dimensions.margin.left + 40) +","+ (dimensions.margin.top) + ")")
               .attr("d", line)
               .style("fill", "none")
               .style("stroke", "blue")
