@@ -48,9 +48,9 @@ d3.csv("Data.csv").then(
               .append("div")
               .attr("id", "mytooltip")
               .style("position", "absolute")
-              .style("z-index", "10")
+              .style("width", "60px")
+              .style("heigth", "28px")
               .style("visibility", "hidden")
-              .text("a simple tooltip");
 
         //Strike out dots
         svg.append('g')
@@ -67,14 +67,22 @@ d3.csv("Data.csv").then(
                 d3.select(this).transition()
                     .attr("style", "fill: black;");
 
-                d3.select("#mytooltip")
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", .9)
+                
+                tooltip.html("Strikeouts: " + i.b_strikeout + "<br/>")
                     .style("visibility", "visible")//set style to it
-                    .text("Strikeouts: " + i.b_strikeout)//set text to it
+                    .style("left", (d3.event.pageX) + "px")		
+                    .style("top", (d3.event.pageY - 28) + "px");	
                 })
             .on("mouseout", function(){
                 d3.select(this).transition()
                     .attr("style", "fill: #CC0000;");
-
+                
+                tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0)
             });
 
         //Strike Out line
@@ -107,13 +115,22 @@ d3.csv("Data.csv").then(
                 d3.select(this).transition()
                     .attr("style", "fill: grey;");
 
-                d3.select("#mytooltip")
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", .9)
+                
+                tooltip.html("Home Runs: " + i.b_home_run + "<br/>")
                     .style("visibility", "visible")//set style to it
-                    .text("Home Runs: " + i.b_home_run)//set text to it
+                    .style("left", (d3.event.pageX) + "px")		
+                    .style("top", (d3.event.pageY - 28) + "px");	
                 })
              .on("mouseout", function(){
                 d3.select(this).transition()
                     .attr("style", "fill: blue;");
+
+                tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0)
 
             });
 

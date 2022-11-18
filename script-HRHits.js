@@ -25,6 +25,13 @@ d3.csv("Data.csv").then(
                 .style("width", dimensions.width + dimensions.margin.left + dimensions.margin.right)
                 .style("height", dimensions.height + dimensions.margin.top + dimensions.margin.bottom)
         
+        var tooltip = d3.select("body")
+              .append("div")
+              .attr("id", "mytooltip")
+              .style("position", "absolute")
+              .style("width", "60px")
+              .style("heigth", "28px")
+              .style("visibility", "hidden")        
 
         var image = svg.append("image")
             .attr('href', 'Baseball_background.png')
@@ -32,6 +39,10 @@ d3.csv("Data.csv").then(
             .attr('height', dimensions.height)
 
         image.attr("transform", 'translate(0,' + (dimensions.margin.top + 10) + ")")
+
+        var color = d3.scaleOrdinal()
+        .domain([0,7])
+        .range(['#E8002F','grey','#001C43','black','#00338E', '#007934']);
 
         
         var x = d3.scaleBand()
@@ -41,7 +52,7 @@ d3.csv("Data.csv").then(
 
         var y = d3.scaleRadial()
             .range([innerRadius,outerRadius])
-            .domain([0,220]) 
+            .domain([0,70]) 
 
         /*
         //X Axis
@@ -60,7 +71,7 @@ d3.csv("Data.csv").then(
             .data(data)
             .enter()
             .append("path")
-                .attr("fill", "red")
+                .attr("fill", function(d){console.log(d.group); return color(d.year)})
                 .attr("d", d3.arc()
                         .innerRadius(innerRadius)
                         .outerRadius(function(d) {return y(d.b_home_run) })
@@ -69,5 +80,27 @@ d3.csv("Data.csv").then(
                         .padAngle(0.01)
                         .padRadius(innerRadius))
             .attr("transform", "translate("+ (dimensions.width/2) + "," + (dimensions.height/2 + dimensions.margin.top + 10) + ")")
+            .on("mouseover", function(d, i){
+                d3.select(this).transition()
+                    .style("opacity", .8)
+
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", .9)
+                
+                tooltip.html("Home Runs: " + i.b_home_run + "<br/>Year: " + i.year + "<br/>")
+                    .style("visibility", "visible")//set style to it
+                    .style("left", (d3.event.pageX) + "px")		
+                    .style("top", (d3.event.pageY - 28) + "px");	
+            })
+            .on("mouseout", function(){
+                d3.select(this).transition()
+                    .style("opacity", 1)
+
+                tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0)
+
+            });
     }
 )
