@@ -6,7 +6,7 @@
         <script src="https://d3js.org/d3.v7.min.js"></script>
     </head>
     <body>
-        <h1>Aaron Judge's Homeruns</h1>
+        <h1>Aaron Judge's Homeruns Distance</h1>
         <button id="start">All Homeruns</button>
         <button id="first">2016</button>
         <button id="second">2017</button>
@@ -16,23 +16,27 @@
         <button id="sixth">2021</button>
         <button id="seventh">2022</button>
         <button id="reset">Reset</button>
-        <!-----
-        <svg id = "HR_to_StkOuts"></svg>
-
-        <svg id = "Home Run Hits"></svg>
-       
-       
-        <svg id = "HR Area Frequency"></svg>
-
-        ----->
+        
         <div id = "graph_placeholder">
         <svg id = "GeoHRs"></svg>
         </div>
+
+        <h2>Homeruns Compared to Strikeouts</h2>
+        <svg id = "HR_to_StkOuts"></svg>
+
+        <h3>Homeruns Compared per Season</h3>
+        <svg id = "Home_Run_Hits"></svg>
+       
+        <!--
+        <svg id = "HR Area Frequency"></svg>
+
+        -->
         
-        <!--<script src="script-HRHits.js"></script>-->
+        
+        <script src="script-HRHits.js"></script>
         <script src="script-GeoHRs2.js"></script> 
-       <!----<script src="script-HRtoSTK.js"></script>
-        <script src="script-AreaFreq.js"></script> -->
+        <script src="script-HRtoSTK.js"></script>
+        <!---<script src="script-AreaFreq.js"></script> -->
 
     </body>
 </html>

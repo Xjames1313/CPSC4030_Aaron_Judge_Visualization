@@ -44,13 +44,15 @@ d3.csv("Data.csv").then(
               .attr("transform","translate("+dimensions.margin.left+","+ dimensions.margin.top +")")
               .call(d3.axisLeft(yScale));
 
-        var tooltip = d3.select("body")
-              .append("div")
-              .attr("id", "mytooltip")
-              .style("position", "absolute")
-              .style("width", "60px")
-              .style("heigth", "28px")
-              .style("visibility", "hidden")
+        var text = svg
+              .append('text')
+              .attr("id", 'topbartext')
+              .attr("x", 700)
+              .attr("y", 20)
+              .attr("dx", "-.8em")
+              .attr("dy", ".15em")
+              .attr("font-family", "sans-serif")
+              .text("Unselected")
 
         //Strike out dots
         svg.append('g')
@@ -67,22 +69,15 @@ d3.csv("Data.csv").then(
                 d3.select(this).transition()
                     .attr("style", "fill: black;");
 
-                tooltip.transition()
-                    .duration(200)
-                    .style("opacity", .9)
-                
-                tooltip.html("Strikeouts: " + i.b_strikeout + "<br/>")
-                    .style("visibility", "visible")//set style to it
-                    .style("left", (d3.event.pageX) + "px")		
-                    .style("top", (d3.event.pageY - 28) + "px");	
+                d3.select('text')
+                    .text("Strikeouts: " + i.b_strikeout)
                 })
             .on("mouseout", function(){
                 d3.select(this).transition()
                     .attr("style", "fill: #CC0000;");
                 
-                tooltip.transition()
-                    .duration(500)
-                    .style("opacity", 0)
+                    d3.select('text')
+                    .text("Unselected")
             });
 
         //Strike Out line
@@ -115,22 +110,15 @@ d3.csv("Data.csv").then(
                 d3.select(this).transition()
                     .attr("style", "fill: grey;");
 
-                tooltip.transition()
-                    .duration(200)
-                    .style("opacity", .9)
-                
-                tooltip.html("Home Runs: " + i.b_home_run + "<br/>")
-                    .style("visibility", "visible")//set style to it
-                    .style("left", (d3.event.pageX) + "px")		
-                    .style("top", (d3.event.pageY - 28) + "px");	
+                d3.select('text')
+                    .text("Home Runs: " + i.b_home_run)	
                 })
              .on("mouseout", function(){
                 d3.select(this).transition()
                     .attr("style", "fill: blue;");
 
-                tooltip.transition()
-                    .duration(500)
-                    .style("opacity", 0)
+                d3.select('text')
+                    .text("Unselected")
 
             });
 
