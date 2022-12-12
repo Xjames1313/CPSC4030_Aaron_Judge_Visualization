@@ -12,6 +12,10 @@ d3.json("homerunpostions.json").then(
       }
     }
 
+    var div = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
     console.log(dataset)
 
     var xAccessor = d => d.Position
@@ -70,22 +74,22 @@ d3.json("homerunpostions.json").then(
         if (d.Year == 2022) { return "black" }
         else { return "red" };
       })
-/*
-      .on("mouseover", function () {
-        d3.select(this)
-          .attr("stroke-width", "2")
-          .attr("stroke", "red")
-        
-      })
-      */
       .on('mouseover', function (d) {
-        d3.select(this)
-          .attr("stroke", "red")
-          //add color so you can see which column is selected
-        d3.select('text')
-          .text("Distance: ")
-
+        div.transition()
+          .duration(200)
+          .style("opacity", .9);
+        div.html("Distance: " + d.Dist)
+          .style("left", (d.pageX) + "px")
+          .style("top", (d.pageY - 28) + "px");
       })
+      .on("mouseout", function(){
+        d3.select(this).transition()
+            .attr("style", "fill: #CC0000;");
+        
+        div.transition()
+            .duration(500)
+            .style("opacity", 0);
+       })
       .attr("cx", 300)
       .attr("cy", 552)
       .attr("r", 3)

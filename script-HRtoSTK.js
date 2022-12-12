@@ -16,6 +16,9 @@ d3.csv("Data.csv").then(
             height: size/3 
         }
 
+        var div = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
 
         var svg = d3.select("#HR_to_StkOuts")
                     .style("width", dimensions.width + dimensions.margin.left + dimensions.margin.right)
@@ -44,15 +47,6 @@ d3.csv("Data.csv").then(
               .attr("transform","translate("+dimensions.margin.left+","+ dimensions.margin.top +")")
               .call(d3.axisLeft(yScale));
 
-        var text = svg
-              .append('text')
-              .attr("id", 'topbartext')
-              .attr("x", 700)
-              .attr("y", 20)
-              .attr("dx", "-.8em")
-              .attr("dy", ".15em")
-              .attr("font-family", "sans-serif")
-              .text("Unselected")
 
         //Strike out dots
         svg.append('g')
@@ -69,15 +63,20 @@ d3.csv("Data.csv").then(
                 d3.select(this).transition()
                     .attr("style", "fill: black;");
 
-                d3.select('text')
-                    .text("Strikeouts: " + i.b_strikeout)
+                div.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                div.html("Strikeouts: " + i.b_strikeout)
+                    .style("left", (d.pageX) + "px")
+                    .style("top", (d.pageY - 28) + "px");
                 })
             .on("mouseout", function(){
                 d3.select(this).transition()
                     .attr("style", "fill: #CC0000;");
                 
-                    d3.select('text')
-                    .text("Unselected")
+                div.transition()
+                    .duration(500)
+                    .style("opacity", 0);
             });
 
         //Strike Out line
@@ -107,20 +106,19 @@ d3.csv("Data.csv").then(
               .attr("transform", "translate("+ (dimensions.margin.left+ 45) +","+ dimensions.margin.top +")")
               .style("fill", "blue")
               .on("mouseover", function(d, i){
-                d3.select(this).transition()
-                    .attr("style", "fill: grey;");
-
-                d3.select('text')
-                    .text("Home Runs: " + i.b_home_run)	
+                div.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                div.html("Homeruns: " + i.b_home_run)
+                    .style("left", (d.pageX) + "px")
+                    .style("top", (d.pageY - 28) + "px");
                 })
              .on("mouseout", function(){
-                d3.select(this).transition()
-                    .attr("style", "fill: blue;");
+                div.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+                });
 
-                d3.select('text')
-                    .text("Unselected")
-
-            });
 
         //Home Run line
         var line = d3.line()
