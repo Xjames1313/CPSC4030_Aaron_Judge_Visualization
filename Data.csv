@@ -1,8 +1,8 @@
-﻿date,value
-2016,15
-2017,154
-2018,115
-2019,103
-2020,26
-2021,158
-2022,177
+﻿last_name, first_name,player_id,year,b_home_run,b_strikeout,b_hits
+Judge, Aaron,592450,2016,4,42,15
+Judge, Aaron,592450,2017,52,208,154
+Judge, Aaron,592450,2018,27,152,115
+Judge, Aaron,592450,2019,27,141,103
+Judge, Aaron,592450,2020,9,32,26
+Judge, Aaron,592450,2021,39,158,158
+Judge, Aaron,592450,2022,62,175,177
