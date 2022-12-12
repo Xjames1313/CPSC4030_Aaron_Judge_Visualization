@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿player,year,hits
 Aaron Judge,1.00,15
 Aaron Judge,2.00,154
@@ -19,4 +20,27 @@ Babe Ruth,3.00,37
 Babe Ruth,4.00,40
 Babe Ruth,5.00,95
 Babe Ruth,6.00,139
+=======
+﻿player,year,hits
+Aaron Judge,1.00,15
+Aaron Judge,2.00,154
+Aaron Judge,3.00,115
+Aaron Judge,4.00,103
+Aaron Judge,5.00,26
+Aaron Judge,6.00,158
+Aaron Judge,7.00,177
+Barry Bonds,1.00,92
+Barry Bonds,2.00,144
+Barry Bonds,3.00,152
+Barry Bonds,4.00,144
+Barry Bonds,5.00,156
+Barry Bonds,6.00,149
+Barry Bonds,7.00,147
+Babe Ruth,1.00,2
+Babe Ruth,2.00,29
+Babe Ruth,3.00,37
+Babe Ruth,4.00,40
+Babe Ruth,5.00,95
+Babe Ruth,6.00,139
+>>>>>>> 625a16716cc6537408add5ccbc0792ea3989244c
 Babe Ruth,7.00,172
