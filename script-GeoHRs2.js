@@ -67,24 +67,22 @@ d3.json("homerunpostions.json").then(
       .style("fill", function (d) {
         if (d.Year == 2016) { return "red" }
         if (d.Year == 2017) { return "green" }
-        if (d.Year == 2018) { return "yellow" }
+        if (d.Year == 2018) { return "magenta" }
         if (d.Year == 2019) { return "tan" }
         if (d.Year == 2020) { return "orange" }
         if (d.Year == 2021) { return "blue" }
         if (d.Year == 2022) { return "black" }
         else { return "red" };
       })
-      .on('mouseover', function (d) {
+      .on('mouseover', function (d,i) {
         div.transition()
           .duration(200)
           .style("opacity", .9);
-        div.html("Distance: " + d.Dist)
+        div.html("Distance: " + i.Dist + "<br/>")
           .style("left", (d.pageX) + "px")
           .style("top", (d.pageY - 28) + "px");
       })
       .on("mouseout", function(){
-        d3.select(this).transition()
-            .attr("style", "fill: #CC0000;");
         
         div.transition()
             .duration(500)
@@ -115,7 +113,7 @@ d3.json("homerunpostions.json").then(
           .style("fill", function (d) {
             if (d.Year == 2016) { return "red" }
             if (d.Year == 2017) { return "green" }
-            if (d.Year == 2018) { return "yellow" }
+            if (d.Year == 2018) { return "magenta" }
             if (d.Year == 2019) { return "tan" }
             if (d.Year == 2020) { return "orange" }
             if (d.Year == 2021) { return "blue" }
