@@ -20,16 +20,14 @@ d3.csv("DataHits.csv").then(
             .attr("class", "tooltip")
             .style("opacity", 0);
 
-        var svg = d3.select("#HR_to_StkOuts")
+        var svg = d3.select("#Baseball_Player_Compare")
                     .style("width", dimensions.width + dimensions.margin.left + dimensions.margin.right)
                     .style("height", dimensions.height + dimensions.margin.top + dimensions.margin.bottom)
 
         dimensions.boundedWidth = dimensions.width - dimensions.margin.right - dimensions.margin.left
         dimensions.boundedHeight = dimensions.height - dimensions.margin.top - dimensions.margin.bottom
                 
-        var sumstat = d3.nest() // nest function allows to group the calculation per level of a factor
-            .key(function(d) { return d.player;})
-            .entries(data);
+        var sumstat = d3.group(data, d => d.player);
 
         
         var xScale = d3.scaleBand()
@@ -52,7 +50,7 @@ d3.csv("DataHits.csv").then(
               .attr("transform","translate("+dimensions.margin.left+","+ dimensions.margin.top +")")
               .call(d3.axisLeft(yScale));
 
-        var res = sumstat.map(function(d) {return d.key})
+        var res = Array.from(sumstat.keys(data["player"]));
         var color = d3.scaleOrdinal()
             .domain(res)
             .range(['#e41a1c','#377eb8','#4daf4a'])
@@ -61,48 +59,43 @@ d3.csv("DataHits.csv").then(
         //Strike out dots
         svg.append('g')
             .selectAll("dot")
-            .data(sumstat)
+            .data(data)
             .enter()
             .append("circle")
             .attr("cx", function (d) { return xScale(d.year); } )
             .attr("cy", function (d) { return yScale(d.hits); } )
             .attr("r", 5)
             .attr("transform", "translate("+ (dimensions.margin.left+ 45) +","+ dimensions.margin.top +")")
-            .attr("fill", function(d){ return color(d.key)})
+            .attr("fill", function(d){ return color(d.player)})
             .on("mouseover", function(d, i){
-                d3.select(this).transition()
-                    .attr("style", "fill: black;");
-
                 div.transition()
                     .duration(200)
                     .style("opacity", .9);
-                div.html("Hits: " + i.hits)
+                div.html(i.player + "\n" + "Hits: " + i.hits)
                     .style("left", (d.pageX) + "px")
                     .style("top", (d.pageY - 28) + "px");
                 })
             .on("mouseout", function(){
-                d3.select(this).transition()
-                    .attr("style", "fill: #CC0000;");
-                
                 div.transition()
                     .duration(500)
                     .style("opacity", 0);
             });
 
         //Strike Out line
-        var line = d3.line()
-              .x(function(d) { return xScale(d.year); }) 
-              .y(function(d) { return yScale(d.hits); }) 
-              .curve(d3.curveMonotoneX)
-              
-              svg.append("path")
-              .datum(data) 
-              .attr("class", "line") 
-              .attr("transform", "translate("+ (dimensions.margin.left + 45) +","+ dimensions.margin.top +")")
-              .attr("d", line)
-              .style("fill", "none")
-              .style("stroke", "#CC0000")
-              .style("stroke-width", "2");
-
+        svg.selectAll(".line")
+            .data(sumstat)
+            .enter()
+            .append("path")
+            //.attr("class", "line")
+            .attr("transform", "translate("+ (dimensions.margin.left + 45) +","+ (dimensions.margin.top) + ")")
+            .attr("fill", "none")
+            .attr("stroke", d => color(d[0]))
+            .attr("stroke-width", 1.5)
+            .attr("d", d => {
+                return d3.line()
+                  .x(d => xScale(d.year))
+                  .y(d => yScale(d.hits))
+                  (d[1])
+              });
     }
 )
