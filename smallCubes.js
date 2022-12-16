@@ -1,3 +1,5 @@
+d3.csv("smallcube.csv").then(
+  function(data){
   // set the dimensions and margins of the graph
   var margin = {top: 30, right: 30, bottom: 30, left: 30},
   width = 450 - margin.left - margin.right,
@@ -5,19 +7,12 @@
 
 // append the svg object to the body of the page
 var svg = d3.select("#heatmap")
-.append("svg")
-  .attr("width", width + margin.left + margin.right)
-  .attr("height", height + margin.top + margin.bottom)
+  .style("width", width + margin.left + margin.right)
+  .style("height", height + margin.top + margin.bottom)
 .append("g")
   .attr("transform",
         "translate(" + margin.left + "," + margin.top + ")");
-svg.append("text")
-    .attr("x", (width / 2))             
-    .attr("y", 0 - (margin.top / 2))
-    .attr("text-anchor", "middle")  
-    .style("font-size", "16px") 
 
-    .text("Number of contacts in Aaron Judge's Strikezone (Inches)");
 
 // Labels of row and columns
 var myGroups = ["-2.25", "-1.75", "-1.25", "-0.75", "-0.25", "0.25", "0.75", "1.25", "1.75", "2.25"]
@@ -49,7 +44,7 @@ var myColor = d3.scaleLinear()
   .domain([1,100])
 
 //Read the data
-d3.csv("smallcube.csv", function(data) {
+//d3.csv("smallcube.csv", function(data) {
 
   // create a tooltip
   var tooltip = d3.select("#heatmap")
@@ -89,4 +84,4 @@ d3.csv("smallcube.csv", function(data) {
     .on("mouseover", mouseover)
     .on("mousemove", mousemove)
     .on("mouseleave", mouseleave)
-})
+  })

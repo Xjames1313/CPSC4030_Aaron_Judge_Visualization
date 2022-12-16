@@ -23,7 +23,10 @@ div.tooltip {
     </style>
 
     <body>
-        <h1>Aaron Judge's Homeruns Distance</h1>
+        <h2>Number of Contacts in Aaron Judge's Strike Zone (inches)</h2>
+        <svg id = "heatmap"></svg>
+
+        <h2>Aaron Judge's Homeruns Distance</h2>
         <button id="start">All Homeruns</button>
         <button id="first">2016</button>
         <button id="second">2017</button>
@@ -37,22 +40,22 @@ div.tooltip {
         <div id = "graph_placeholder">
         <svg id = "GeoHRs"></svg>
         </div>
-
-        <!--
-        <h2>Homeruns Compared to Strikeouts</h2>
-        <svg id = "HR_to_StkOuts"></svg>
-        -->
-
+        
         <h2>Player Comparison</h2>
         <svg id = "Baseball_Player_Compare"></svg>
 
-        
-        
-        <!--<script src="script-HRHits.js"></script>-->
+        <h2>Homeruns Compared to Strikeouts</h2>
+        <svg id = "HR_to_StkOuts"></svg>
+
+        <h2>Exit Velocity</h2>
+        <svg id = "ExitVelocity"></svg>
+
+
+        <script src="ExitVelocity.js"></script>
         <script src="script-GeoHRs2.js"></script> 
-        <!--<script src="script-HRtoSTK.js"></script>-->
+        <script src="script-HRtoSTK.js"></script>
         <script src="script-BBPlayers.js"></script>
-        <!---<script src="script-AreaFreq.js"></script> -->
+        <script src="smallCubes.js"></script>
 
     </body>
 </html>
